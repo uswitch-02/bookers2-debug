@@ -4,7 +4,7 @@
   <!--検索対象モデルがuserの時-->
   <% if @range == "User" %>
   <tbody>
-    <% @user.each do |user| %>
+    <% @users.each do |user| %>
     <tr>
       <td><%= user.name %></td>
     </tr>
