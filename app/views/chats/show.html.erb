@@ -1,0 +1,29 @@
+<h1 id ="room" data-room="<%= @room.id %>" data-user= "<%= current_user.id %>"></h1>
+<h1><%= @user.name %>さんとのチャット</h1>
+      
+<div class="message" style="width: 400px;">
+  <% @chats.each do |chat| %>
+    <% if chat.user_id == current_user.id %>
+      <p style="text-align: rignt;"><%= chat.message %></p>
+    <% else %>
+      <p style="text-align: left;"><%= chat.message %></p>
+    <% end %>
+  <% end %>
+</div>
+      
+<div class="errors">
+  <%= render "layouts/errors", obj: @chat %>
+</div>
+      
+      <%= form_with model:@chat, remote: true do |f| %>
+        <%= f.text_field :message %>
+        <%= f.hidden_field :room_id %>
+      <% end %>
+      <!--ログインユーザーが対象のユーザーではなく、対象のユーザーをフォローしていてかつ、そのユーザー
+      からフォローされていた場合リンクを出現させます-->
+      <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
+        <%= link_to 'chatを始める', chat_path(user.id), class: "ml-3" %>
+      <% end %>
+    </div>
+  </div>
+</div>

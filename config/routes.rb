@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'chats/show'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   devise_for :users
   root :to =>"homes#top"
@@ -16,4 +17,6 @@ Rails.application.routes.draw do
   end
 
   get "search" => "searches#search"
+  get 'chat/:id', to: 'chat#show', as: 'chat'
+  resources :chats, only: [:create, :show]
 end
